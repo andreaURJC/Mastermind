@@ -12,8 +12,14 @@ public class Combination {
 
     private List<Color> combination;
 
+    private String stringCombination;
+
     public Combination(List<Color> combination) {
         this.combination = combination;
+    }
+
+    public String getStringCombination() {
+        return stringCombination;
     }
 
     public static boolean isValidCombination(String string) {

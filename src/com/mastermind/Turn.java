@@ -1,5 +1,6 @@
 package com.mastermind;
 
+import com.mastermind.models.Board;
 import utils.Console;
 
 import java.util.stream.Collectors;
@@ -17,7 +18,6 @@ public class Turn {
 
     public void play() {
         if (board.getSecretCombination() == null) {
-            this.printWelcomeMessage();
             board.setSecretCombination(machineCodeMakerPlayer.generateCombination());
             console.writeLine(board.getSecretCombination().getCombination().toString());
         } else {
@@ -25,7 +25,6 @@ public class Turn {
             board.putCombination(newCombination);
             Result result = machineCodeMakerPlayer.checkCombination();
             board.setResult(result);
-            printResult(result);
         }
     }
 
@@ -37,21 +36,18 @@ public class Turn {
         }
     }
 
-    private Combination codeMakerCreateNewCombination() {
+    public Combination codeMakerCreateNewCombination() {
         Combination combination;
         combination = codeBreakerPlayer.putCombination();
 
         return combination;
     }
 
-    private void printWelcomeMessage() {
-        console.writeLine(Message.MASTERMIND.getMessage());
+    public Combination machineCodeMakerPlayerGenerateSecretCombination() {
+        return machineCodeMakerPlayer.generateCombination();
     }
 
-    private void printResult(Result result) {
-        int blackItems = result.getSuccesses().stream().filter(success -> success == Success.BLACK).collect(Collectors.toList()).size();
-        int whiteItems = result.getSuccesses().stream().filter(success -> success == Success.WHITE).collect(Collectors.toList()).size();
-        console.writeLine("Black pins: " + blackItems + "and white pins: " + whiteItems);
+    public Result machineCodeMakerCheckResult() {
+       return machineCodeMakerPlayer.checkCombination();
     }
-
 }

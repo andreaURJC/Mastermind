@@ -1,21 +1,23 @@
 package com.mastermind;
 
+import com.mastermind.models.Game;
+import com.mastermind.views.View;
+
 public class Mastermind {
+    private Game game;
+    private View view;
 
-
-    public static void main(String[] args) {
-        Board board = new Board();
-        Turn turn = new Turn(board);
-
-        play(board, turn);
+    public Mastermind() {
+        game = new Game();
+        view = new View(this.game);
     }
 
-    private static void play(Board board, Turn turn) {
-        do {
-            turn.play();
-        } while (!board.isWinner() || board.isLastAttempt());
+    public static void main(String[] args) {
+        new Mastermind().play();
+    }
 
-        turn.publishGameResult();
+    private void play() {
+        this.view.interact();
     }
 
 }

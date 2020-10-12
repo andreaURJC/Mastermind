@@ -1,5 +1,7 @@
 package com.mastermind;
 
+import utils.Console;
+
 public enum Message {
     MASTERMIND("------ Mastermind ------"),
     YOU_WON("You've won!!! ;-)"),
@@ -8,7 +10,10 @@ public enum Message {
     PROPOSE_COMBINATION("Propose a combination: "),
     ARROW(" --> "),
     COMBINATION_PATTERN("xxxx"),
-    ERROR("Invalid combination, try again:");
+    ERROR("Invalid combination, try again:"),
+    BLACK_ITEMS("blacks "),
+    WHITE_ITEMS("whites "),
+    AND(" and ");
 
     private String message;
 
@@ -18,6 +23,10 @@ public enum Message {
 
     public String getMessage() {
         return message;
+    }
+
+    public void writeLine() {
+        Console.instance().writeLine(this.message);
     }
 
 }

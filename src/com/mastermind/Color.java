@@ -1,5 +1,8 @@
 package com.mastermind;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Color {
     GREEN("g"),
     BLUE("b"),
@@ -35,6 +38,15 @@ public enum Color {
             default:
                 return null;
         }
+    }
+
+    public static List<Color> toColors(String inputCombinationString) {
+        List<Color> colorList = new ArrayList<>();
+        for (Character character : inputCombinationString.toCharArray()) {
+            Color color = Color.getColorFromString(character.toString());
+            colorList.add(color);
+        }
+        return colorList;
     }
 
 }

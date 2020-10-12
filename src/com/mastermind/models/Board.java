@@ -1,5 +1,9 @@
-package com.mastermind;
+package com.mastermind.models;
 
+
+import com.mastermind.Combination;
+import com.mastermind.Result;
+import com.mastermind.Success;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,4 +56,19 @@ public class Board {
         return combinations.get(combinations.size() - 1);
     }
 
+    public int getAttempts() {
+        return this.combinations.size();
+    }
+
+    public boolean isCompleted() {
+        return this.combinations.size() == MAX_ATTEMPTS;
+    }
+
+    public Combination getCombinationAtIndex(int index) {
+        return this.combinations.get(index);
+    }
+
+    public Result getResultAtIndex(int index) {
+        return this.results.get(index);
+    }
 }
