@@ -1,12 +1,11 @@
-package com.mastermind;
+package com.mastermind.models;
 
-import com.mastermind.models.Board;
 import utils.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineCodeMakerPlayer implements Player {
+public class MachineCodeMakerPlayer {
     Board board;
 
     public MachineCodeMakerPlayer(Board board) {

@@ -1,40 +1,35 @@
 package com.mastermind.models;
 
 
-import com.mastermind.Combination;
-import com.mastermind.Result;
-import com.mastermind.Success;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Board {
     private Combination secretCombination;
-    private List<Combination> combinations = new ArrayList<>();
-    private List<Result> results = new ArrayList<>();
+    private List<Combination> combinations;
+    private List<Result> results;
+
+    public Board() {
+        this.secretCombination = null;
+        this.combinations = new ArrayList<>();;
+        this.results = new ArrayList<>();;
+    }
 
     final int MAX_ATTEMPTS = 3;
-
-    public Combination getSecretCombination() {
-        return secretCombination;
-    }
-
-    public void setSecretCombination(Combination secretCombination) {
-        this.secretCombination = secretCombination;
-    }
 
     public boolean isWinner() {
         if (results.isEmpty()) {
             return false;
         }
-
         Result lastResult = results.get(results.size() - 1);
-        if (lastResult.getSuccesses().stream().filter(success -> success == Success.BLACK).collect(Collectors.toList()).size() == 4) {
-            return true;
-        } else {
+        return lastResult.isWinnerResult();
+    }
+
+    public boolean isLastAttempt() {
+        if (this.combinations.isEmpty()) {
             return false;
         }
+        return this.combinations.size() == MAX_ATTEMPTS;
     }
 
     public void putCombination(Combination combination) {
@@ -45,11 +40,12 @@ public class Board {
         this.results.add(result);
     }
 
-    public boolean isLastAttempt() {
-        if (this.combinations.isEmpty()) {
-            return false;
-        }
-        return this.combinations.size() == MAX_ATTEMPTS;
+    public Combination getSecretCombination() {
+        return secretCombination;
+    }
+
+    public void setSecretCombination(Combination secretCombination) {
+        this.secretCombination = secretCombination;
     }
 
     public Combination getLastCombination() {
@@ -61,7 +57,7 @@ public class Board {
     }
 
     public boolean isCompleted() {
-        return this.combinations.size() == MAX_ATTEMPTS;
+        return this.getAttempts() == MAX_ATTEMPTS;
     }
 
     public Combination getCombinationAtIndex(int index) {

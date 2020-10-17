@@ -1,11 +1,9 @@
 package com.mastermind.views;
 
-import com.mastermind.Color;
-import com.mastermind.Combination;
+import com.mastermind.models.Combination;
 import utils.Console;
 
 public class CombinationView {
-    Color[] colors = Color.values();
     Combination combination;
 
     public CombinationView(Combination combination) {

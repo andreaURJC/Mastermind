@@ -1,9 +1,9 @@
-package com.mastermind;
+package com.mastermind.models;
 
 import com.mastermind.models.Board;
-import utils.Console;
-
-import java.util.stream.Collectors;
+import com.mastermind.models.Combination;
+import com.mastermind.models.MachineCodeMakerPlayer;
+import com.mastermind.models.Result;
 
 public class Turn {
     Board board;

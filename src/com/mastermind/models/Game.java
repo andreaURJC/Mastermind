@@ -1,17 +1,11 @@
 package com.mastermind.models;
 
-import com.mastermind.Combination;
-import com.mastermind.Result;
-import com.mastermind.Turn;
-import utils.Console;
-
 public class Game {
     public Board getBoard() {
         return board;
     }
 
     private Board board;
-
     private Turn turn;
 
     public Game() {
@@ -19,8 +13,15 @@ public class Game {
         turn = new Turn(this.board);
     }
 
-    public Turn getTurn() {
-        return turn;
+    public void putSecretCombination() {
+        Combination secretCombination = turn.machineCodeMakerPlayerGenerateSecretCombination();
+        board.setSecretCombination(secretCombination);
+    }
+
+    public void putCombination(Combination combination) {
+        board.putCombination(combination);
+        Result result = turn.getCodeMakerResult();
+        board.setResult(result);
     }
 
     public boolean isBoardCompleted() {
@@ -31,10 +32,20 @@ public class Game {
         return this.board.isWinner();
     }
 
-    public boolean isSecretCombinationSet() { return this.board.getSecretCombination() != null; }
+    public boolean isSecretCombinationSet() {
+        return this.board.getSecretCombination() != null;
+    }
 
-    public void putSecretCombination() {
-        Combination secretCombination = turn.machineCodeMakerPlayerGenerateSecretCombination();
-        board.setSecretCombination(secretCombination);
+    public boolean isWinner() {
+        return board.isWinner();
+    }
+
+    public void resetGame() {
+        board = new Board();
+        turn = new Turn(this.board);
+    }
+
+    public int getAttempts() {
+        return this.board.getAttempts();
     }
 }

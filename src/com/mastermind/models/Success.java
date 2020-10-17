@@ -1,4 +1,4 @@
-package com.mastermind;
+package com.mastermind.models;
 
 public enum Success {
     BLACK,

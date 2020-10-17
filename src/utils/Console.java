@@ -9,7 +9,7 @@ public class Console {
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     public static Console instance() {
-        if( console == null) {
+        if (console == null) {
             return Console.console = new Console();
         }
         return Console.console;
@@ -18,7 +18,7 @@ public class Console {
     public String readString(String title) {
         String input = null;
         this.writeLine(title);
-        try{
+        try {
             input = this.bufferedReader.readLine();
 
         } catch (Exception e) {
@@ -31,6 +31,11 @@ public class Console {
     public void writeLine(String message) {
         System.out.println(message);
     }
+
+    public void write(String message, int attempts) {
+        System.out.printf(attempts + message);
+    }
+
     public void writeLine() {
         System.out.println();
     }
@@ -46,4 +51,17 @@ public class Console {
     public void printError(String error) {
         System.out.println(error);
     }
+
+    public char readChar() {
+        String input = null;
+        do {
+            try {
+                input = this.bufferedReader.readLine();
+            } catch (Exception e) {
+            }
+        } while (input.length() != 1);
+
+        return input.charAt(0);
+    }
+
 }

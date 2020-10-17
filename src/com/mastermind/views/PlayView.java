@@ -1,11 +1,8 @@
 package com.mastermind.views;
 
-import com.mastermind.Combination;
-import com.mastermind.Message;
+import com.mastermind.models.Combination;
+import com.mastermind.models.Message;
 import com.mastermind.models.Game;
-
-import javax.swing.*;
-import java.util.List;
 
 public class PlayView {
     private Game game;
@@ -21,8 +18,11 @@ public class PlayView {
             } else {
                 this.putSecretCombination();
             }
-
         } while (game.isBoardCompleted() || game.isMastermindGuessed());
+
+        this.writeResult();
+
+
     }
 
     private void putSecretCombination() {
@@ -30,6 +30,15 @@ public class PlayView {
     }
 
     private void putCombination() {
-        Combination combination = new CombinationView().read(Message.PROPOSE_COMBINATION.toString());
+        Combination combination = new CombinationView().read(Message.PROPOSE_COMBINATION.getMessage());
+        game.putCombination(combination);
+    }
+
+    private void writeResult() {
+        if (game.isWinner()) {
+            Message.YOU_WON.writeLine();
+        } else {
+            Message.YOU_LOST.writeLine();
+        }
     }
 }

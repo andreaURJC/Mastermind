@@ -1,4 +1,4 @@
-package com.mastermind;
+package com.mastermind.models;
 
 import utils.Console;
 
@@ -16,6 +16,10 @@ public enum Message {
     AND(" and "),
     RESUME("RESUME? (y/n): ");
 
+
+    public String getMessage() {
+        return message;
+    }
 
     private String message;
 

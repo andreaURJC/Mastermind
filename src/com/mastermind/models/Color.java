@@ -1,4 +1,4 @@
-package com.mastermind;
+package com.mastermind.models;
 
 import java.util.ArrayList;
 import java.util.List;

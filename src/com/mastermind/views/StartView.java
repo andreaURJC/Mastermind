@@ -1,6 +1,6 @@
 package com.mastermind.views;
 
-import com.mastermind.Message;
+import com.mastermind.models.Message;
 import com.mastermind.models.Game;
 
 public class StartView {
@@ -11,6 +11,7 @@ public class StartView {
     }
 
     void interact() {
+        this.game.resetGame();
         Message.MASTERMIND.writeLine();
         new GameView(this.game).write();
     }
