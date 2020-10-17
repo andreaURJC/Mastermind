@@ -1,51 +1,55 @@
 package com.mastermind.models;
 
-public class Game {
-    public Board getBoard() {
-        return board;
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    private Board board;
-    private Turn turn;
+public class Game {
+
+    private static final int MAX_LONG = 10;
+
+    private SecretCombination secretCombination;
+
+    private List<ProposedCombination> proposedCombinations;
+
+    private List<Result> results;
+
+    private int attempts;
 
     public Game() {
-        board = new Board();
-        turn = new Turn(this.board);
+        this.clear();
     }
 
-    public void putSecretCombination() {
-        Combination secretCombination = turn.machineCodeMakerPlayerGenerateSecretCombination();
-        board.setSecretCombination(secretCombination);
+    public void clear() {
+        this.secretCombination = new SecretCombination();
+        this.proposedCombinations = new ArrayList<ProposedCombination>();
+        this.results = new ArrayList<Result>();
+        this.attempts = 0;
     }
 
-    public void putCombination(Combination combination) {
-        board.putCombination(combination);
-        Result result = turn.getCodeMakerResult();
-        board.setResult(result);
+    public void addProposedCombination(ProposedCombination proposedCombination) {
+        this.proposedCombinations.add(proposedCombination);
+        this.results.add(this.secretCombination.getResult(proposedCombination));
+        this.attempts++;
     }
 
-    public boolean isBoardCompleted() {
-        return this.board.isCompleted();
-    }
-
-    public boolean isMastermindGuessed() {
-        return this.board.isWinner();
-    }
-
-    public boolean isSecretCombinationSet() {
-        return this.board.getSecretCombination() != null;
+    public boolean isLooser() {
+        return this.attempts == Game.MAX_LONG;
     }
 
     public boolean isWinner() {
-        return board.isWinner();
-    }
-
-    public void resetGame() {
-        board = new Board();
-        turn = new Turn(this.board);
+        return this.results.get(this.attempts-1).isWinner();
     }
 
     public int getAttempts() {
-        return this.board.getAttempts();
+        return this.attempts;
     }
+
+    public ProposedCombination getProposedCombination(int position) {
+        return this.proposedCombinations.get(position);
+    }
+
+    public Result getResult(int position) {
+        return this.results.get(position);
+    }
+
 }

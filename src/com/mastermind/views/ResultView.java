@@ -1,22 +1,19 @@
 package com.mastermind.views;
 
-import com.mastermind.models.Message;
 import com.mastermind.models.Result;
-import com.mastermind.models.Success;
-import utils.Console;
+import utils.WithConsoleView;
 
-import java.util.stream.Collectors;
+class ResultView extends WithConsoleView {
 
-public class ResultView {
-    Result result;
+    private Result result;
 
-    public ResultView(Result result) {
+    ResultView(Result result) {
         this.result = result;
     }
 
-    void write() {
-        int blackItems = result.getSuccesses().stream().filter(success -> success == Success.BLACK).collect(Collectors.toList()).size();
-        int whiteItems = result.getSuccesses().stream().filter(success -> success == Success.WHITE).collect(Collectors.toList()).size();
-        Console.instance().writeLine(Message.BLACK_ITEMS.toString() + blackItems + Message.AND.toString() + Message.WHITE_ITEMS.toString() + whiteItems);
+    void writeln() {
+        MessageView.RESULT.writeln(this.result.getBlacks(), this.result.getWhites());
     }
+
 }
+

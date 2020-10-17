@@ -4,17 +4,27 @@ import java.util.List;
 
 public class Result {
 
-    List<Success> successes;
+    private int blacks = 0;
 
-    public Result(List<Success> successes) {
-        this.successes = successes;
+    private int whites = 0;
+
+    Result(int blacks, int whites) {
+        assert blacks >= 0;
+        assert whites >= 0;
+        this.blacks = blacks;
+        this.whites = whites;
     }
 
-    public List<Success> getSuccesses() {
-        return successes;
+    boolean isWinner() {
+        return this.blacks == Combination.getWidth();
     }
 
-    public boolean isWinnerResult() {
-        return this.getSuccesses().stream().filter(success -> success == Success.BLACK).count() == 4;
+    public int getBlacks() {
+        return this.blacks;
     }
+
+    public int getWhites() {
+        return this.whites;
+    }
+
 }

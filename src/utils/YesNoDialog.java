@@ -1,34 +1,40 @@
 package utils;
 
-import com.mastermind.models.Message;
+public class YesNoDialog  extends WithConsoleView {
 
-public class YesNoDialog {
-    private static final char AFFIRMATIVE = 'y';
+    private static final char AFIRMATIVE = 'y';
+
     private static final char NEGATIVE = 'n';
 
-    private char answer;
+    private static final String QUESTION = "? ("+YesNoDialog.AFIRMATIVE+"/"+YesNoDialog.NEGATIVE+"): ";
 
-    public YesNoDialog() {
+    private static final String MESSAGE = "The value must be '" + YesNoDialog.AFIRMATIVE + "' or '"
+            + YesNoDialog.NEGATIVE + "'";
+
+    public boolean read(String title) {
+        assert title != null;
+        char answer;
+        boolean ok;
+        do {
+            answer = this.console.readChar(title + YesNoDialog.QUESTION);
+            ok = YesNoDialog.isAfirmative(answer) || YesNoDialog.isNegative(answer);
+            if (!ok) {
+                this.console.writeln(YesNoDialog.MESSAGE);
+            }
+        } while (!ok);
+        return YesNoDialog.isAfirmative(answer);
     }
 
     public boolean read() {
-        Console console = Console.instance();
-
-        do {
-            Message.RESUME.writeLine();
-            this.answer = console.readChar();
-        } while (isAffirmative() || isNegative());
-
-        return this.isAffirmative();
+        return this.read("");
     }
 
-    private boolean isAffirmative() {
-        return this.answer == AFFIRMATIVE;
+    private static boolean isAfirmative(char answer) {
+        return Character.toLowerCase(answer) == YesNoDialog.AFIRMATIVE;
     }
 
-    private boolean isNegative() {
-        return this.answer == NEGATIVE;
+    private static boolean isNegative(char answer) {
+        return Character.toLowerCase(answer) == YesNoDialog.NEGATIVE;
     }
-
 
 }

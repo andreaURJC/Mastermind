@@ -1,18 +1,12 @@
 package com.mastermind.views;
 
-import com.mastermind.models.Message;
-import com.mastermind.models.Game;
+import utils.WithConsoleView;
 
-public class StartView {
-    private Game game;
-
-    public StartView(Game game) {
-        this.game = game;
-    }
+class StartView extends WithConsoleView {
 
     void interact() {
-        this.game.resetGame();
-        Message.MASTERMIND.writeLine();
-        new GameView(this.game).write();
+        MessageView.TITLE.writeln();
+        new SecretCombinationView().writeln();
     }
+
 }
