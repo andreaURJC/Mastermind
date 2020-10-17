@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Result {
 
+    List<Success> successes;
+
     public Result(List<Success> successes) {
         this.successes = successes;
     }
@@ -12,9 +14,7 @@ public class Result {
         return successes;
     }
 
-    public void setSuccesses(List<Success> successes) {
-        this.successes = successes;
+    public boolean isWinnerResult() {
+        return this.getSuccesses().stream().filter(success -> success == Success.BLACK).count() == 4;
     }
-
-    List<Success> successes;
 }

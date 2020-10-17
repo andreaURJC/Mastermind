@@ -1,8 +1,8 @@
 package com.mastermind.views;
 
-import com.mastermind.Message;
-import com.mastermind.Result;
-import com.mastermind.Success;
+import com.mastermind.models.Message;
+import com.mastermind.models.Result;
+import com.mastermind.models.Success;
 import utils.Console;
 
 import java.util.stream.Collectors;

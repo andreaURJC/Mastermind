@@ -6,14 +6,16 @@ public enum Message {
     MASTERMIND("------ Mastermind ------"),
     YOU_WON("You've won!!! ;-)"),
     YOU_LOST("You've lost!!! :-("),
-    ATTEMPS("attempt(s):"),
+    ATTEMPS(" attempt(s):\n"),
     PROPOSE_COMBINATION("Propose a combination: "),
     ARROW(" --> "),
     COMBINATION_PATTERN("xxxx"),
     ERROR("Invalid combination, try again:"),
     BLACK_ITEMS("blacks "),
     WHITE_ITEMS("whites "),
-    AND(" and ");
+    AND(" and "),
+    RESUME("RESUME? (y/n): ");
+
 
     private String message;
 
@@ -21,12 +23,12 @@ public enum Message {
         this.message = s;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     public void writeLine() {
         Console.instance().writeLine(this.message);
+    }
+
+    public void writeLine(int attempts) {
+        Console.instance().write(this.message, attempts);
     }
 
 }
