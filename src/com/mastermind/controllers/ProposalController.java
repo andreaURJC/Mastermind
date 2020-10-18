@@ -3,10 +3,11 @@ package com.mastermind.controllers;
 import com.mastermind.models.Game;
 import com.mastermind.models.ProposedCombination;
 import com.mastermind.models.Result;
+import com.mastermind.models.State;
 
 public class ProposalController extends Controller {
-    public ProposalController(Game game) {
-        super(game);
+    public ProposalController(Game game, State state) {
+        super(game, state);
     }
 
     public void addProposedCombination(ProposedCombination proposedCombination) {
@@ -32,4 +33,5 @@ public class ProposalController extends Controller {
     public boolean isLooser() {
         return this.game.isLooser();
     }
+
 }

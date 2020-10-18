@@ -1,40 +1,38 @@
 package com.mastermind.views.console;
 
-import com.mastermind.controllers.Logic;
+import com.mastermind.controllers.ProposalController;
 import com.mastermind.models.ProposedCombination;
 import com.mastermind.views.Message;
 import utils.Console;
 
 class ProposalView {
     private SecretCombinationView secretCombinationView;
-    private Logic logic;
 
-    ProposalView(Logic logic) {
-        this.logic = logic;
+    ProposalView () {
         this.secretCombinationView = new SecretCombinationView();
     }
 
-    boolean interact() {
+    void interact(ProposalController proposalController) {
         ProposedCombination proposedCombination = new ProposedCombination();
         ProposedCombinationView proposedCombinationView = new ProposedCombinationView(proposedCombination);
         proposedCombinationView.read();
-        this.logic.addProposedCombination(proposedCombination);
+        proposalController.addProposedCombination(proposedCombination);
         Console console = new Console();
         console.writeln();
-        Message.ATTEMPTS.writeln(this.logic.getAttempts());
+        Message.ATTEMPTS.writeln(proposalController.getAttempts());
         this.secretCombinationView.writeln();
-        for (int i = 0; i < this.logic.getAttempts(); i++) {
-            new ProposedCombinationView(this.logic.getProposedCombination(i)).write();
-            new ResultView(this.logic.getResult(i)).writeln();
+        for (int i = 0; i < proposalController.getAttempts(); i++) {
+            new ProposedCombinationView(proposalController.getProposedCombination(i)).write();
+            new ResultView(proposalController.getResult(i)).writeln();
         }
-        if (this.logic.isWinner()) {
+        if (proposalController.isWinner()) {
             Message.WINNER.writeln();
-            return true;
-        } else if (this.logic.isLooser()) {
+            proposalController.next();
+
+        } else if (proposalController.isLooser()) {
             Message.LOOSER.writeln();
-            return true;
+            proposalController.next();
         }
-        return false;
     }
 
 }
