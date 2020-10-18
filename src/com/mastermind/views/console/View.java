@@ -1,22 +1,19 @@
 package com.mastermind.views.console;
 
-import com.mastermind.models.Game;
+import com.mastermind.controllers.ProposalController;
+import com.mastermind.controllers.ResumeController;
 
 public class View extends com.mastermind.views.View {
-
-    protected Game game;
-
     private StartView startView;
 
     private ProposalView proposalView;
 
     private ResumeView resumeView;
 
-    public View(Game game) {
-        super(game);
+    public View(ProposalController proposalController, ResumeController resumeController) {
         this.startView = new StartView();
-        this.proposalView = new ProposalView(this.game);
-        this.resumeView = new ResumeView(this.game);
+        this.proposalView = new ProposalView(proposalController);
+        this.resumeView = new ResumeView(resumeController);
     }
 
     @Override

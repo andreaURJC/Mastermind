@@ -1,10 +1,10 @@
 package com.mastermind.views.graphics;
 
-import com.mastermind.models.Game;
+import com.mastermind.controllers.ProposalController;
+import com.mastermind.controllers.ResumeController;
 
 public class View extends com.mastermind.views.View {
-    public View(Game game) {
-        super(game);
+    public View(ProposalController proposalController, ResumeController resumeController) {
     }
 
     @Override
