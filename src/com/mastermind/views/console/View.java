@@ -1,7 +1,6 @@
 package com.mastermind.views.console;
 
-import com.mastermind.controllers.ProposalController;
-import com.mastermind.controllers.ResumeController;
+import com.mastermind.controllers.Logic;
 
 public class View extends com.mastermind.views.View {
     private StartView startView;
@@ -10,10 +9,10 @@ public class View extends com.mastermind.views.View {
 
     private ResumeView resumeView;
 
-    public View(ProposalController proposalController, ResumeController resumeController) {
+    public View(Logic logic) {
         this.startView = new StartView();
-        this.proposalView = new ProposalView(proposalController);
-        this.resumeView = new ResumeView(resumeController);
+        this.proposalView = new ProposalView(logic);
+        this.resumeView = new ResumeView(logic);
     }
 
     @Override

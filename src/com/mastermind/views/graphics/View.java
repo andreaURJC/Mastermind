@@ -1,10 +1,11 @@
 package com.mastermind.views.graphics;
 
+import com.mastermind.controllers.Logic;
 import com.mastermind.controllers.ProposalController;
 import com.mastermind.controllers.ResumeController;
 
 public class View extends com.mastermind.views.View {
-    public View(ProposalController proposalController, ResumeController resumeController) {
+    public View(Logic logic) {
     }
 
     @Override

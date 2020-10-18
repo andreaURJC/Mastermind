@@ -1,17 +1,16 @@
 package com.mastermind.views.console;
 
-
-import com.mastermind.controllers.ProposalController;
+import com.mastermind.controllers.Logic;
 import com.mastermind.models.ProposedCombination;
 import com.mastermind.views.Message;
 import utils.Console;
 
 class ProposalView {
     private SecretCombinationView secretCombinationView;
-    private ProposalController proposalController;
+    private Logic logic;
 
-    ProposalView(ProposalController proposalController) {
-        this.proposalController = proposalController;
+    ProposalView(Logic logic) {
+        this.logic = logic;
         this.secretCombinationView = new SecretCombinationView();
     }
 
@@ -19,19 +18,19 @@ class ProposalView {
         ProposedCombination proposedCombination = new ProposedCombination();
         ProposedCombinationView proposedCombinationView = new ProposedCombinationView(proposedCombination);
         proposedCombinationView.read();
-        this.proposalController.addProposedCombination(proposedCombination);
+        this.logic.addProposedCombination(proposedCombination);
         Console console = new Console();
         console.writeln();
-        Message.ATTEMPTS.writeln(this.proposalController.getAttempts());
+        Message.ATTEMPTS.writeln(this.logic.getAttempts());
         this.secretCombinationView.writeln();
-        for (int i = 0; i < this.proposalController.getAttempts(); i++) {
-            new ProposedCombinationView(this.proposalController.getProposedCombination(i)).write();
-            new ResultView(this.proposalController.getResult(i)).writeln();
+        for (int i = 0; i < this.logic.getAttempts(); i++) {
+            new ProposedCombinationView(this.logic.getProposedCombination(i)).write();
+            new ResultView(this.logic.getResult(i)).writeln();
         }
-        if (this.proposalController.isWinner()) {
+        if (this.logic.isWinner()) {
             Message.WINNER.writeln();
             return true;
-        } else if (this.proposalController.isLooser()) {
+        } else if (this.logic.isLooser()) {
             Message.LOOSER.writeln();
             return true;
         }
