@@ -1,9 +1,9 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
 import com.mastermind.models.Color;
 import utils.WithConsoleView;
 
-class ColorView extends WithConsoleView {
+public class ColorView extends WithConsoleView {
 
     private static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p'};
 
@@ -13,7 +13,7 @@ class ColorView extends WithConsoleView {
         this.color = color;
     }
 
-    static String allInitials() {
+    public static String allInitials() {
         String result = "";
         for(char character: ColorView.INITIALS) {
             result += character;

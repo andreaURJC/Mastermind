@@ -1,11 +1,12 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
+import com.mastermind.views.Message;
 import utils.WithConsoleView;
 
 class StartView extends WithConsoleView {
 
     void interact() {
-        MessageView.TITLE.writeln();
+        Message.TITLE.writeln();
         new SecretCombinationView().writeln();
     }
 

@@ -1,18 +1,16 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
 import com.mastermind.models.Game;
+import com.mastermind.views.Message;
 import utils.YesNoDialog;
 
-class ResumeView {
-
-    private Game game;
-
+class ResumeView extends SubView {
     ResumeView(Game game) {
-        this.game = game;
+        super(game);
     }
 
     boolean interact() {
-        MessageView.RESUME.write();
+        Message.RESUME.write();
         boolean newGame = new YesNoDialog().read();
         if (newGame) {
             this.game.clear();

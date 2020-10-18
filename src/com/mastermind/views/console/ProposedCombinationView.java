@@ -1,8 +1,9 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
 import com.mastermind.models.Color;
 import com.mastermind.models.Combination;
 import com.mastermind.models.ProposedCombination;
+import com.mastermind.views.Message;
 import utils.WithConsoleView;
 import com.mastermind.models.Error;
 
@@ -24,7 +25,7 @@ class ProposedCombinationView extends WithConsoleView {
         Error error;
         do {
             error = null;
-            MessageView.PROPOSED_COMBINATION.write();
+            Message.PROPOSED_COMBINATION.write();
             String characters = this.console.readString();
             if (characters.length() > Combination.getWidth()) {
                 error = Error.WRONG_LENGTH;

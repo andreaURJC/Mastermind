@@ -1,6 +1,7 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
 import com.mastermind.models.Result;
+import com.mastermind.views.Message;
 import utils.WithConsoleView;
 
 class ResultView extends WithConsoleView {
@@ -12,7 +13,7 @@ class ResultView extends WithConsoleView {
     }
 
     void writeln() {
-        MessageView.RESULT.writeln(this.result.getBlacks(), this.result.getWhites());
+        Message.RESULT.writeln(this.result.getBlacks(), this.result.getWhites());
     }
 
 }

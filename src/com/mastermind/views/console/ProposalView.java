@@ -1,18 +1,16 @@
-package com.mastermind.views;
+package com.mastermind.views.console;
 
 
 import com.mastermind.models.Game;
 import com.mastermind.models.ProposedCombination;
-import utils.WithConsoleView;
+import com.mastermind.views.Message;
+import utils.Console;
 
-class ProposalView extends WithConsoleView {
-
-    private Game game;
-
+class ProposalView extends SubView {
     private SecretCombinationView secretCombinationView;
 
     ProposalView(Game game) {
-        this.game = game;
+        super(game);
         this.secretCombinationView = new SecretCombinationView();
     }
 
@@ -21,18 +19,19 @@ class ProposalView extends WithConsoleView {
         ProposedCombinationView proposedCombinationView = new ProposedCombinationView(proposedCombination);
         proposedCombinationView.read();
         this.game.addProposedCombination(proposedCombination);
-        this.console.writeln();
-        MessageView.ATTEMPTS.writeln(this.game.getAttempts());
+        Console console = new Console();
+        console.writeln();
+        Message.ATTEMPTS.writeln(this.game.getAttempts());
         this.secretCombinationView.writeln();
         for (int i = 0; i < this.game.getAttempts(); i++) {
             new ProposedCombinationView(this.game.getProposedCombination(i)).write();
             new ResultView(this.game.getResult(i)).writeln();
         }
         if (this.game.isWinner()) {
-            MessageView.WINNER.writeln();
+            Message.WINNER.writeln();
             return true;
         } else if (this.game.isLooser()) {
-            MessageView.LOOSER.writeln();
+            Message.LOOSER.writeln();
             return true;
         }
         return false;
