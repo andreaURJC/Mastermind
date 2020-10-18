@@ -5,10 +5,11 @@ import com.mastermind.models.ProposedCombination;
 import com.mastermind.models.Result;
 import com.mastermind.models.State;
 
-public class ProposalController extends Controller {
+public class ProposalController extends UserCaseController {
     public ProposalController(Game game, State state) {
         super(game, state);
     }
+
 
     public void addProposedCombination(ProposedCombination proposedCombination) {
         this.game.addProposedCombination(proposedCombination);
@@ -34,4 +35,8 @@ public class ProposalController extends Controller {
         return this.game.isLooser();
     }
 
+    @Override
+    public void accept(ControllerVisitor controllerVisitor) {
+        controllerVisitor.visit(this);
+    }
 }
