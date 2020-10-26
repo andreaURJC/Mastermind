@@ -3,14 +3,19 @@ package com.mastermind.controllers;
 import com.mastermind.models.Game;
 import com.mastermind.models.State;
 
-public class StartController extends UserCaseController {
+public class StartController extends Controller {
+
     public StartController(Game game, State state) {
         super(game, state);
     }
 
+    public void start() {
+        this.state.next();
+    }
+
     @Override
-    public void accept(ControllerVisitor controllerVisitor) {
-        controllerVisitor.visit(this);
+    public void accept(ControllersVisitor controllersVisitor) {
+        controllersVisitor.visit(this);
     }
 
 }

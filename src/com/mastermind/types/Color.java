@@ -1,7 +1,4 @@
-package com.mastermind.models;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.mastermind.types;
 
 public enum Color {
     RED,
@@ -11,7 +8,7 @@ public enum Color {
     ORANGE,
     PURPLE;
 
-    static int length() {
+    public static int length() {
         return Color.values().length;
     }
 

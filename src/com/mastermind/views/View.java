@@ -1,10 +1,13 @@
 package com.mastermind.views;
 
-import com.mastermind.controllers.UserCaseController;
+import com.mastermind.controllers.ControllersVisitor;
+import com.mastermind.controllers.Controller;
 
-public abstract class View {
+public abstract class View implements ControllersVisitor {
 
-    public abstract void interact(UserCaseController userCaseController);
+    public void interact(Controller controller) {
+        controller.accept(this);
+    }
 
 }
 

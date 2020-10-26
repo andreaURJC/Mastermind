@@ -3,19 +3,21 @@ package com.mastermind.controllers;
 import com.mastermind.models.Game;
 import com.mastermind.models.State;
 
-public abstract class UserCaseController {
+public abstract class Controller {
 
     protected Game game;
+
     protected State state;
 
-    UserCaseController(Game game, State state) {
+    Controller(Game game, State state) {
         this.game = game;
         this.state = state;
     }
 
-    public void next() {
-        this.state.next();
+    public int getWidth() {
+        return this.game.getWidth();
     }
 
-    public abstract void accept(ControllerVisitor controllerVisitor);
+    public abstract void accept(ControllersVisitor controllersVisitor);
+
 }

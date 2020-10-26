@@ -1,18 +1,16 @@
 package com.mastermind.views.console;
 
+import com.mastermind.types.Error;
 import utils.Console;
-import com.mastermind.models.Error;
 
 class ErrorView extends com.mastermind.views.ErrorView {
 
-    private Error error;
-
-    ErrorView(Error error) {
-        this.error = error;
+   public ErrorView(Error error) {
+        super(error);
     }
 
     void writeln() {
-        Console console = new Console();
-        console.writeln(MESSAGES[this.error.ordinal()]);
+        new Console().writeln(ErrorView.MESSAGES[this.error.ordinal()]);
     }
+
 }

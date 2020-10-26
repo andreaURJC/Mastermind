@@ -2,7 +2,7 @@ package com.mastermind.views;
 
 import utils.Console;
 
-enum MessageView {
+public enum MessageView {
     ATTEMPTS("#attempts attempt(s): "),
     SECRET("*"),
     RESUME("Do you want to continue"),
@@ -14,26 +14,12 @@ enum MessageView {
 
     private String message;
 
-    private Console console = new Console();
-
     private MessageView(String message) {
         this.message = message;
     }
 
-    void write() {
-        this.console.write(this.message);
-    }
-
-    void writeln() {
-        this.console.writeln(this.message);
-    }
-
-    void writeln(int attempts) {
-        this.console.writeln(this.message.replaceAll("#attempts", "" + attempts));
-    }
-
-    void writeln(int blacks, int whites) {
-        this.console.writeln(this.message.replaceFirst("#blacks", "" + blacks).replaceFirst("#whites", "" + whites));
+    public String getMessage() {
+        return this.message;
     }
 
 }

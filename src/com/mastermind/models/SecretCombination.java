@@ -1,5 +1,7 @@
 package com.mastermind.models;
 
+import com.mastermind.types.Color;
+
 import java.util.Collections;
 import java.util.Random;
 

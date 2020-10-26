@@ -1,30 +1,41 @@
 package com.mastermind.controllers;
 
-import com.mastermind.models.Game;
-import com.mastermind.models.ProposedCombination;
-import com.mastermind.models.Result;
-import com.mastermind.models.State;
+import com.mastermind.models.*;
+import com.mastermind.types.Color;
+import com.mastermind.types.Error;
 
-public class ProposalController extends UserCaseController {
+import java.util.List;
+
+public class ProposalController extends Controller {
+
     public ProposalController(Game game, State state) {
         super(game, state);
     }
 
-
-    public void addProposedCombination(ProposedCombination proposedCombination) {
-        this.game.addProposedCombination(proposedCombination);
-    }
-
-    public int getAttempts() {
-        return this.game.getAttempts();
-    }
-
-    public ProposedCombination getProposedCombination(int position) {
-        return this.game.getProposedCombination(position);
-    }
-
-    public Result getResult(int position) {
-        return this.game.getResult(position);
+    public Error addProposedCombination(List<Color> colors) {
+        Error error = null;
+        if (colors.size() != Combination.getWidth()) {
+            error = Error.WRONG_LENGTH;
+        } else {
+            for (int i = 0; i < colors.size(); i++) {
+                if (colors.get(i) == null) {
+                    error = Error.WRONG_CHARACTERS;
+                } else {
+                    for (int j = i+1; j < colors.size(); j++) {
+                        if (colors.get(i) == colors.get(j)) {
+                            error = Error.DUPLICATED;
+                        }
+                    }
+                }
+            }
+        }
+        if (error == null){
+            this.game.addProposedCombination(colors);
+            if (this.game.isWinner() || this.game.isLooser()) {
+                this.state.next();
+            }
+        }
+        return error;
     }
 
     public boolean isWinner() {
@@ -35,8 +46,25 @@ public class ProposalController extends UserCaseController {
         return this.game.isLooser();
     }
 
-    @Override
-    public void accept(ControllerVisitor controllerVisitor) {
-        controllerVisitor.visit(this);
+    public int getAttempts() {
+        return this.game.getAttempts();
     }
+
+    public List<Color> getColors(int position) {
+        return this.game.getColors(position);
+    }
+
+    public int getBlacks(int position) {
+        return this.game.getBlacks(position);
+    }
+
+    public int getWhites(int position) {
+        return this.game.getWhites(position);
+    }
+
+    @Override
+    public void accept(ControllersVisitor controllersVisitor) {
+        controllersVisitor.visit(this);
+    }
+
 }

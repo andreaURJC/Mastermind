@@ -1,53 +1,34 @@
 package com.mastermind.views.console;
 
-import com.mastermind.models.Color;
-import com.mastermind.models.Combination;
-import com.mastermind.models.ProposedCombination;
-import com.mastermind.views.Message;
+import com.mastermind.controllers.ProposalController;
+import com.mastermind.types.Color;
+import com.mastermind.views.MessageView;
 import utils.WithConsoleView;
-import com.mastermind.models.Error;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class ProposedCombinationView extends WithConsoleView {
 
-    private ProposedCombination proposedCombination;
+    private ProposalController proposalController;
 
-    ProposedCombinationView(ProposedCombination proposedCombination) {
-        this.proposedCombination = proposedCombination;
+    ProposedCombinationView(ProposalController proposalController) {
+        this.proposalController = proposalController;
     }
 
-    void write() {
-        for (Color color: this.proposedCombination.getColors()) {
+    void write(int position) {
+        for (Color color : this.proposalController.getColors(position)) {
             new ColorView(color).write();
         }
     }
 
-    void read() {
-        Error error;
-        do {
-            error = null;
-            Message.PROPOSED_COMBINATION.write();
-            String characters = this.console.readString();
-            if (characters.length() > Combination.getWidth()) {
-                error = Error.WRONG_LENGTH;
-            } else {
-                for (int i = 0; i < characters.length(); i++) {
-                    Color color = ColorView.getInstance(characters.charAt(i));
-                    if (color == null) {
-                        error = Error.WRONG_CHARACTERS;
-                    } else {
-                        if (this.proposedCombination.getColors().contains(color)) {
-                            error = Error.DUPLICATED;
-                        } else {
-                            this.proposedCombination.getColors().add(color);
-                        }
-                    }
-                }
-            }
-            if (error != null) {
-                new ErrorView(error).writeln();
-                this.proposedCombination.getColors().clear();
-            }
-        } while (error != null);
+    List<Color> read() {
+        String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
+        List<Color> colors = new ArrayList<Color>();
+        for (int i=0; i<characters.length(); i++) {
+            colors.add(ColorView.getInstance(characters.charAt(i)));
+        }
+        return colors;
     }
 
 }

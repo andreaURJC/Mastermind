@@ -1,8 +1,9 @@
 package com.mastermind.models;
 
+import com.mastermind.types.Color;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public abstract class Combination {
 

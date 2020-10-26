@@ -1,6 +1,6 @@
 package com.mastermind.controllers;
 
-public interface ControllerVisitor {
+public interface ControllersVisitor {
     void visit(StartController startController);
     void visit(ProposalController proposalController);
     void visit(ResumeController resumeController);

@@ -3,18 +3,24 @@ package com.mastermind.controllers;
 import com.mastermind.models.Game;
 import com.mastermind.models.State;
 
-public class ResumeController extends UserCaseController {
+public class ResumeController extends Controller {
+
     public ResumeController(Game game, State state) {
         super(game, state);
     }
 
-    public void clear() {
-        this.game.clear();
-        this.state.reset();
+    public void resume(boolean newGame) {
+        if (newGame) {
+            this.game.clear();
+            this.state.reset();
+        } else {
+            this.state.next();
+        }
     }
 
     @Override
-    public void accept(ControllerVisitor controllerVisitor) {
-        controllerVisitor.visit(this);
+    public void accept(ControllersVisitor controllersVisitor) {
+        controllersVisitor.visit(this);
     }
+
 }

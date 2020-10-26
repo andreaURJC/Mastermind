@@ -1,5 +1,7 @@
 package com.mastermind.models;
 
+import com.mastermind.types.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class Game {
         this.attempts = 0;
     }
 
-    public void addProposedCombination(ProposedCombination proposedCombination) {
+    public void addProposedCombination(List<Color> colors) {
+        ProposedCombination proposedCombination = new ProposedCombination(colors);
         this.proposedCombinations.add(proposedCombination);
         this.results.add(this.secretCombination.getResult(proposedCombination));
         this.attempts++;
@@ -44,12 +47,20 @@ public class Game {
         return this.attempts;
     }
 
-    public ProposedCombination getProposedCombination(int position) {
-        return this.proposedCombinations.get(position);
+    public List<Color> getColors(int position) {
+        return this.proposedCombinations.get(position).colors;
     }
 
-    public Result getResult(int position) {
-        return this.results.get(position);
+    public int getBlacks(int position) {
+        return this.results.get(position).getBlacks();
+    }
+
+    public int getWhites(int position) {
+        return this.results.get(position).getWhites();
+    }
+
+    public int getWidth() {
+        return Combination.getWidth();
     }
 
 }
