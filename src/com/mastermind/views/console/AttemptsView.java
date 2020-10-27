@@ -2,7 +2,7 @@ package com.mastermind.views.console;
 
 import com.mastermind.controllers.ProposalController;
 
-import com.mastermind.views.MessageView;
+import com.mastermind.views.Message;
 import utils.WithConsoleView;
 
 public class AttemptsView extends WithConsoleView {
@@ -14,7 +14,7 @@ public class AttemptsView extends WithConsoleView {
     }
 
     void writeln() {
-        this.console.writeln(MessageView.ATTEMPTS.getMessage().replaceFirst("#attempts",
+        this.console.writeln(Message.ATTEMPTS.getMessage().replaceFirst("#attempts",
                 "" + this.proposalController.getAttempts()));
     }
 

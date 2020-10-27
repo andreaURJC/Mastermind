@@ -1,9 +1,7 @@
 package com.mastermind.views.console;
 
 import com.mastermind.controllers.ProposalController;
-import com.mastermind.models.Result;
 import com.mastermind.views.Message;
-import com.mastermind.views.MessageView;
 import utils.WithConsoleView;
 
 class ResultView extends WithConsoleView {
@@ -15,7 +13,7 @@ class ResultView extends WithConsoleView {
     }
 
     void writeln(int i) {
-        this.console.writeln(MessageView.RESULT.getMessage()
+        this.console.writeln(Message.RESULT.getMessage()
                 .replaceFirst("#blacks", "" + this.proposalController.getBlacks(i))
                 .replaceFirst("#whites", "" + this.proposalController.getWhites(i)));
     }

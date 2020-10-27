@@ -1,11 +1,8 @@
 package com.mastermind.views.console;
 
-import com.mastermind.controllers.ProposalController;
-import com.mastermind.controllers.ResumeController;
-import com.mastermind.controllers.StartController;
-import com.mastermind.views.View;
+import com.mastermind.controllers.*;
 
-public class ConsoleView extends View {
+public class View implements ControllersVisitor {
 
     private StartView startView;
 
@@ -13,12 +10,13 @@ public class ConsoleView extends View {
 
     private ResumeView resumeView;
 
-    public ConsoleView(){
+    public View(){
         this.startView = new StartView();
         this.proposalView = new ProposalView();
         this.resumeView = new ResumeView();
     }
 
+    public void interact(AcceptorController acceptorController) {acceptorController.accept(this);}
 
     public void visit(StartController startController) {
         this.startView.interact(startController);

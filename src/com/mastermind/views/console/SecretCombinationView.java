@@ -1,25 +1,23 @@
 package com.mastermind.views.console;
 
-import com.mastermind.controllers.Controller;
-import com.mastermind.models.SecretCombination;
+import com.mastermind.controllers.AcceptorController;
+import com.mastermind.controllers.StartController;
 import com.mastermind.views.Message;
-import com.mastermind.views.MessageView;
 import utils.WithConsoleView;
 
 class SecretCombinationView extends WithConsoleView {
 
-    private Controller controller;
+    private AcceptorController controller;
 
-    SecretCombinationView(Controller controller) {
+    SecretCombinationView(AcceptorController controller) {
         super();
         this.controller = controller;
     }
 
-    void writeln() {
+    void write() {
         for (int i = 0; i < this.controller.getWidth(); i++) {
-            this.console.write(MessageView.SECRET.getMessage());
+            Message.SECRET.writeln();
         }
-        this.console.writeln();
     }
 
 }

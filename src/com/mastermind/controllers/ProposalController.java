@@ -6,60 +6,65 @@ import com.mastermind.types.Error;
 
 import java.util.List;
 
-public class ProposalController extends Controller {
+public class ProposalController extends AcceptorController {
 
-    public ProposalController(Game game, State state) {
-        super(game, state);
+    private MovementController movementController;
+    private UndoController undoController;
+    private RedoController redoController;
+
+    public ProposalController(Session session) {
+        super(session);
+        this.movementController = new MovementController(session);
+        this.redoController = new RedoController(session);
+        this.undoController = new UndoController(session);
     }
 
     public Error addProposedCombination(List<Color> colors) {
-        Error error = null;
-        if (colors.size() != Combination.getWidth()) {
-            error = Error.WRONG_LENGTH;
-        } else {
-            for (int i = 0; i < colors.size(); i++) {
-                if (colors.get(i) == null) {
-                    error = Error.WRONG_CHARACTERS;
-                } else {
-                    for (int j = i+1; j < colors.size(); j++) {
-                        if (colors.get(i) == colors.get(j)) {
-                            error = Error.DUPLICATED;
-                        }
-                    }
-                }
-            }
-        }
-        if (error == null){
-            this.game.addProposedCombination(colors);
-            if (this.game.isWinner() || this.game.isLooser()) {
-                this.state.next();
-            }
+        Error error = this.movementController.addProposedCombination(colors);
+        if (error == null && this.session.isWinner() || this.session.isLooser()) {
+            this.session.next();
         }
         return error;
     }
 
     public boolean isWinner() {
-        return this.game.isWinner();
+        return this.movementController.isWinner();
     }
 
     public boolean isLooser() {
-        return this.game.isLooser();
+        return this.movementController.isLooser();
     }
 
     public int getAttempts() {
-        return this.game.getAttempts();
+        return this.movementController.getAttempts();
     }
 
     public List<Color> getColors(int position) {
-        return this.game.getColors(position);
+        return this.movementController.getColors(position);
     }
 
     public int getBlacks(int position) {
-        return this.game.getBlacks(position);
+        return this.movementController.getBlacks(position);
     }
 
     public int getWhites(int position) {
-        return this.game.getWhites(position);
+        return this.movementController.getWhites(position);
+    }
+
+    public void undo() {
+        this.undoController.undo();
+    }
+
+    public void redo() {
+        this.redoController.redo();
+    }
+
+    public boolean undoable() {
+        return this.undoController.undoable();
+    }
+
+    public boolean redoable() {
+        return this.redoController.redoable();
     }
 
     @Override
@@ -67,4 +72,7 @@ public class ProposalController extends Controller {
         controllersVisitor.visit(this);
     }
 
+    public int getWidth() {
+        return this.movementController.getWidth();
+    }
 }

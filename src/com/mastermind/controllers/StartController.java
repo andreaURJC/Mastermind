@@ -1,16 +1,19 @@
 package com.mastermind.controllers;
 
-import com.mastermind.models.Game;
-import com.mastermind.models.State;
+import com.mastermind.models.Session;
 
-public class StartController extends Controller {
+public class StartController extends AcceptorController {
 
-    public StartController(Game game, State state) {
-        super(game, state);
+    public StartController(Session session) {
+        super(session);
     }
 
     public void start() {
-        this.state.next();
+        this.session.next();
+    }
+
+    public int getWidth() {
+        return this.session.getWidth();
     }
 
     @Override

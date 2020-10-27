@@ -23,9 +23,13 @@ public class Game {
 
     public void clear() {
         this.secretCombination = new SecretCombination();
-        this.proposedCombinations = new ArrayList<ProposedCombination>();
-        this.results = new ArrayList<Result>();
+        this.proposedCombinations = new ArrayList<>();
+        this.results = new ArrayList<>();
         this.attempts = 0;
+    }
+
+    Memento createMemento() {
+        return new Memento(getSecretCombination(), getProposedCombinationCopy(), getResultsCopy(), getAttempts());
     }
 
     public void addProposedCombination(List<Color> colors) {
@@ -40,7 +44,7 @@ public class Game {
     }
 
     public boolean isWinner() {
-        return this.results.get(this.attempts-1).isWinner();
+        return this.results.get(this.attempts - 1).isWinner();
     }
 
     public int getAttempts() {
@@ -61,6 +65,35 @@ public class Game {
 
     public int getWidth() {
         return Combination.getWidth();
+    }
+
+    private List<Result> getResultsCopy() {
+        List<Result> resultsCopy = new ArrayList<>();
+        for (Result result : results) {
+            Result resultCopy = result;
+            resultsCopy.add(resultCopy);
+        }
+        return resultsCopy;
+    }
+
+    private List<ProposedCombination> getProposedCombinationCopy() {
+        List<ProposedCombination> proposedCombinationsCopy = new ArrayList<>();
+        for (ProposedCombination proposedCombination : proposedCombinations) {
+            ProposedCombination resultCopy = proposedCombination;
+            proposedCombinationsCopy.add(resultCopy);
+        }
+        return proposedCombinationsCopy;
+    }
+
+    private SecretCombination getSecretCombination() {
+        return secretCombination;
+    }
+
+    public void set(Memento memento) {
+        this.secretCombination = memento.getSecretCombination();
+        this.proposedCombinations = memento.getProposedCombinations();
+        this.results = memento.getResults();
+        this.attempts = memento.getAttempts();
     }
 
 }

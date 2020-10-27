@@ -4,7 +4,7 @@ import com.mastermind.types.Color;
 
 import java.util.List;
 
-class ProposedCombination extends Combination {
+public class ProposedCombination extends Combination {
 
     ProposedCombination(List<Color> colors) {
         this.colors = colors;

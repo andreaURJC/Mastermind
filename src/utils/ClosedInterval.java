@@ -16,4 +16,7 @@ public class ClosedInterval {
         return this.min <= value && value <= this.max;
     }
 
+    public boolean isIncluded(int value) {
+        return this.min <= value && value <= this.max;
+    }
 }

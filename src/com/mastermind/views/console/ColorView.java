@@ -11,7 +11,7 @@ class ColorView extends com.mastermind.views.ColorView {
     }
 
     void write() {
-        new Console().write(ColorView.INITIALS[this.color.ordinal()]);
+        Console.instance().write(ColorView.INITIALS[this.color.ordinal()]);
     }
 
 }

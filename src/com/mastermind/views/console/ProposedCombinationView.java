@@ -2,7 +2,7 @@ package com.mastermind.views.console;
 
 import com.mastermind.controllers.ProposalController;
 import com.mastermind.types.Color;
-import com.mastermind.views.MessageView;
+import com.mastermind.views.Message;
 import utils.WithConsoleView;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ class ProposedCombinationView extends WithConsoleView {
     }
 
     List<Color> read() {
-        String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
+        String characters = this.console.readString(Message.PROPOSED_COMBINATION.getMessage());
         List<Color> colors = new ArrayList<Color>();
         for (int i=0; i<characters.length(); i++) {
             colors.add(ColorView.getInstance(characters.charAt(i)));
