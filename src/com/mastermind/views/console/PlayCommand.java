@@ -38,7 +38,7 @@ public class PlayCommand extends Command {
 
         do {
             colors = new ProposedCombinationView(proposalController).read();
-            error = proposalController.addProposedCombination(colors);
+            error = proposalController.addProposedCombinationError(colors);
             new ErrorView(error).writeln();
         } while (error != null);
     }

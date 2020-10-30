@@ -22,7 +22,7 @@ public class ProposalControllerImplementation extends ProposalController {
     }
 
     @Override
-    public Error addProposedCombination(List<Color> colors) {
+    public Error addProposedCombinationError(List<Color> colors) {
         Error error = this.movementController.addProposedCombination(colors);
         if (error == null && this.sessionImplementation.isWinner() || this.sessionImplementation.isLooser()) {
             this.sessionImplementation.next();

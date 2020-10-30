@@ -4,7 +4,7 @@ import com.mastermind.controllers.AcceptorController;
 import com.mastermind.controllers.Logic;
 import com.mastermind.views.console.View;
 
-abstract class Mastermind {
+public abstract class Mastermind {
 
     private Logic logic;
     private View view;

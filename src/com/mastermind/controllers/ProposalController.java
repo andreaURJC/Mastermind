@@ -19,7 +19,7 @@ public abstract class ProposalController extends AcceptorController {
         this.undoController = new UndoController(session);
     }
 
-    public abstract Error addProposedCombination(List<Color> colors);
+    public abstract Error addProposedCombinationError(List<Color> colors);
 
     public abstract boolean isWinner();
 
