@@ -7,14 +7,14 @@ public class Registry {
     private Game game;
     private int firstPrevious;
 
-    Registry(Game game) {
+    public Registry(Game game) {
         this.game = game;
         this.mementoList = new ArrayList<>();
         this.firstPrevious = 0;
         this.mementoList.add(this.firstPrevious, this.game.createMemento());
     }
 
-    void register() {
+    public void register() {
         for (int i = 0; i < this.firstPrevious; i++) {
             this.mementoList.remove(0);
             this.firstPrevious--;
@@ -22,26 +22,26 @@ public class Registry {
         this.mementoList.add(this.firstPrevious, this.game.createMemento());
     }
 
-    void undo(Game game) {
+    public void undo(Game game) {
         this.firstPrevious++;
         Memento memento = this.mementoList.get(this.firstPrevious);
         game.set(memento);
     }
 
-    void redo(Game game) {
+    public void redo(Game game) {
         this.firstPrevious--;
         game.set(this.mementoList.get(this.firstPrevious));
     }
 
-    boolean undoable() {
+    public boolean undoable() {
         return this.firstPrevious < this.mementoList.size() - 1;
     }
 
-    boolean redoable() {
+    public boolean redoable() {
         return this.firstPrevious >= 1;
     }
 
-    void reset() {
+    public void reset() {
         this.mementoList = new ArrayList<>();
         this.firstPrevious = 0;
     }

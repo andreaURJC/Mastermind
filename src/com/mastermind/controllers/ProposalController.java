@@ -6,7 +6,7 @@ import com.mastermind.types.Error;
 
 import java.util.List;
 
-public class ProposalController extends AcceptorController {
+public abstract class ProposalController extends AcceptorController {
 
     private MovementController movementController;
     private UndoController undoController;
@@ -19,60 +19,32 @@ public class ProposalController extends AcceptorController {
         this.undoController = new UndoController(session);
     }
 
-    public Error addProposedCombination(List<Color> colors) {
-        Error error = this.movementController.addProposedCombination(colors);
-        if (error == null && this.session.isWinner() || this.session.isLooser()) {
-            this.session.next();
-        }
-        return error;
-    }
+    public abstract Error addProposedCombination(List<Color> colors);
 
-    public boolean isWinner() {
-        return this.movementController.isWinner();
-    }
+    public abstract boolean isWinner();
 
-    public boolean isLooser() {
-        return this.movementController.isLooser();
-    }
+    public abstract boolean isLooser();
 
-    public int getAttempts() {
-        return this.movementController.getAttempts();
-    }
+    public abstract int getAttempts();
 
-    public List<Color> getColors(int position) {
-        return this.movementController.getColors(position);
-    }
+    public abstract List<Color> getColors(int position);
 
-    public int getBlacks(int position) {
-        return this.movementController.getBlacks(position);
-    }
+    public abstract int getBlacks(int position);
 
-    public int getWhites(int position) {
-        return this.movementController.getWhites(position);
-    }
+    public abstract int getWhites(int position);
 
-    public void undo() {
-        this.undoController.undo();
-    }
+    public abstract void undo();
 
-    public void redo() {
-        this.redoController.redo();
-    }
+    public abstract void redo();
 
-    public boolean undoable() {
-        return this.undoController.undoable();
-    }
+    public abstract boolean undoable();
 
-    public boolean redoable() {
-        return this.redoController.redoable();
-    }
+    public abstract boolean redoable();
 
     @Override
     public void accept(ControllersVisitor controllersVisitor) {
         controllersVisitor.visit(this);
     }
 
-    public int getWidth() {
-        return this.movementController.getWidth();
-    }
+    public abstract int getWidth();
 }

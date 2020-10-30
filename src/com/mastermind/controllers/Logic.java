@@ -7,17 +7,12 @@ import java.util.Map;
 
 public class Logic {
 
-    private Session session;
+    protected Session session;
 
-    private Map<StateValue, AcceptorController> acceptorControllers;
+    protected Map<StateValue, AcceptorController> acceptorControllers;
 
-    public Logic() {
-        this.session = new Session();
+    protected Logic() {
         this.acceptorControllers = new HashMap<>();
-        this.acceptorControllers.put(StateValue.INITIAL, new StartController(this.session));
-        this.acceptorControllers.put(StateValue.IN_GAME, new ProposalController(this.session));
-        this.acceptorControllers.put(StateValue.FINAL, new ResumeController(this.session));
-        this.acceptorControllers.put(StateValue.EXIT, null);
     }
 
     public AcceptorController getController() {

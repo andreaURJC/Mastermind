@@ -4,16 +4,17 @@ import com.mastermind.controllers.AcceptorController;
 import com.mastermind.controllers.Logic;
 import com.mastermind.views.console.View;
 
-class Mastermind {
+abstract class Mastermind {
 
     private Logic logic;
     private View view;
 
     protected Mastermind() {
-        this.logic = new Logic();
+        this.logic = this.createLogic();
         this.view = new View();
     }
 
+    protected abstract Logic createLogic();
     protected void play() {
         AcceptorController acceptorController;
 
@@ -23,10 +24,6 @@ class Mastermind {
                 this.view.interact(acceptorController);
             }
         } while (acceptorController != null);
-    }
-
-    public static void main(String[] args) {
-        new Mastermind().play();
     }
 
 }
