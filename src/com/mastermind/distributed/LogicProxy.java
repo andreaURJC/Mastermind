@@ -9,6 +9,7 @@ public class LogicProxy extends Logic {
 
     public LogicProxy() {
         this.tcpip = TCPIP.createClientSocket();
+        this.session = new SessionProxy(this.tcpip);
         this.acceptorControllers.put(StateValue.INITIAL, new StartControllerProxy(this.session, this.tcpip));
         this.acceptorControllers.put(StateValue.IN_GAME, new ProposalControllerProxy(this.session,this.tcpip));
         this.acceptorControllers.put(StateValue.FINAL, new ResumeControllerProxy(this.session, this.tcpip));

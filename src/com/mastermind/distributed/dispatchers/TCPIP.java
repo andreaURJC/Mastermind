@@ -47,11 +47,20 @@ public class TCPIP extends utils.TCPIP {
         if (colors == null) {
             this.send("null");
         } else {
-            for (Color color: colors) {
+            for (Color color : colors) {
                 this.send(color.name());
             }
         }
     }
+
+    public void send(Error value) {
+        if (value == null) {
+            this.send("null");
+        } else {
+            this.send(value.name());
+        }
+    }
+
     public List<Color> receiveColors() {
         String colors = this.receiveLine();
         if (colors.equals("null")) {
@@ -65,7 +74,7 @@ public class TCPIP extends utils.TCPIP {
     public Error receiveError() {
         String error = this.receiveLine();
 
-        if(error.equals("null")){
+        if (error.equals("null")) {
             return null;
         }
         return Error.valueOf(error);

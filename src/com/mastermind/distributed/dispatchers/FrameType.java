@@ -2,6 +2,7 @@ package com.mastermind.distributed.dispatchers;
 
 public enum FrameType {
     START,
+    RESUME,
     NEW_GAME,
     UNDO,
     REDO,
@@ -15,7 +16,8 @@ public enum FrameType {
     BLACKS,
     WHITES,
     PROPOSED_COMBINATION_ERROR,
-    CLOSE;
+    CLOSE,
+    STATE;
 
     public static FrameType parser(String string) {
         for(FrameType frameType : FrameType.values()) {
