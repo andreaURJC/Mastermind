@@ -1,0 +1,110 @@
+@startuml
+package com.mastermind {
+    package controllers {
+    abstract class Controller {
+    - Game game
+    - State state
+    + void next()
+    + {abstract} void control()
+    }
+    abstract class InGameController {
+    + {abstract} void inGameControl()
+    - void writeProposedCombinations()
+    - void writeIsWinnerOrLooser()
+    }
+    class Logic {
+    - Game game
+    - State state
+    + List<Controller> controllers
+    + Controller getController()
+    }
+    class ProposalController {
+    - void proposeCombination()
+    }
+    class StartController {}
+    class ResumeController {
+    - void clear()
+    }
+
+    InGameController .up.> Controller
+    StartController ..up.> Controller
+    ResumeController ..up.> Controller
+    ProposalController .up.> InGameController
+
+    }
+    package views {
+        package console {
+        class ColorView
+        class ErrorView
+        class ProposedCombinationView
+        class ResultView
+        class ResumeView
+        class SecretCombinationView
+        class StartView
+
+        ProposedCombinationView ..> ColorView
+        ProposedCombinationView ..> ErrorView
+
+        }
+        package Graphics{}
+    }
+    package models {
+    abstract class Combination
+    enum ErrorView
+    class Game {
+    - SecretCombination secretCombination
+    - List<ProposedCombination> proposedCombinations
+    - List<Result> results
+    - int attempts
+
+    + void addProposedCombination(List<Color> colors)
+    + boolean isWinner()
+    + boolean isLooser()
+    + int getAttempts()
+    + ProposedCombination getProposedCombination()
+    + Result getResult()
+
+    }
+    class ProposedCombination
+    class Result
+    class SecretCombination
+    class State
+    class StateValue
+
+    Game --o SecretCombination
+    Game --o ProposedCombination
+    Game --o Result
+
+    SecretCombination ..> Combination
+    ProposedCombination ..> Combination
+
+    State --o StateValue
+    }
+
+    abstract class Mastermind {
+    - Logic logic
+    # void play()
+    }
+
+    class MastermindConsole
+
+    MastermindConsole ..> Mastermind
+
+    Mastermind --o Logic
+
+    Logic --o Game
+    Logic --o State
+
+    Logic ..> Controller
+
+    ProposalController ..> ProposedCombinationView
+    ProposalController ..> ResultView
+    ProposalController ..> SecretCombinationView
+
+    StartController ..> StartView
+    StartController ..> SecretCombinationView
+    ResumeController ..> ResumeView
+
+}
+
+@enduml

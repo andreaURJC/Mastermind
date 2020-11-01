@@ -7,21 +7,21 @@ import com.mastermind.views.Message;
 import utils.WithConsoleView;
 import com.mastermind.models.Error;
 
-class ProposedCombinationView extends WithConsoleView {
+public class ProposedCombinationView extends WithConsoleView {
 
     private ProposedCombination proposedCombination;
 
-    ProposedCombinationView(ProposedCombination proposedCombination) {
+    public ProposedCombinationView(ProposedCombination proposedCombination) {
         this.proposedCombination = proposedCombination;
     }
 
-    void write() {
+    public void write() {
         for (Color color: this.proposedCombination.getColors()) {
             new ColorView(color).write();
         }
     }
 
-    void read() {
+    public void read() {
         Error error;
         do {
             error = null;

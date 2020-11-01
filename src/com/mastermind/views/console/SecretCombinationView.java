@@ -4,13 +4,13 @@ import com.mastermind.models.SecretCombination;
 import com.mastermind.views.Message;
 import utils.WithConsoleView;
 
-class SecretCombinationView extends WithConsoleView {
+public class SecretCombinationView extends WithConsoleView {
 
-    SecretCombinationView() {
+    public SecretCombinationView() {
         super();
     }
 
-    void writeln() {
+    public void writeln() {
         for (int i = 0; i < SecretCombination.getWidth(); i++) {
             Message.SECRET.write();
         }

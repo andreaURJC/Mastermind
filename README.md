@@ -1,3 +1,3 @@
 ### Mastermind
-#### Diagrama de clases
-![Diagrama de clases](diagrama_clases.png)
+#### Diseno de clases
+![Diagrama de clases](design_class.png)

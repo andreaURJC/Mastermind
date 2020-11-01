@@ -1,6 +1,6 @@
 package com.mastermind.views.graphics;
 
-import com.mastermind.controllers.UserCaseController;
+import com.mastermind.controllers.Controller;
 
 public class View extends com.mastermind.views.View {
     public View() {
@@ -8,7 +8,7 @@ public class View extends com.mastermind.views.View {
 
 
     @Override
-    public void interact(UserCaseController userCaseController) {
+    public void interact(Controller controller) {
 
     }
 }
