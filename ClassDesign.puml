@@ -1,0 +1,217 @@
+@startuml
+
+package utils {
+class TCPIP
+}
+
+package com.mastermind{
+    package controllers {
+        package implementation{
+        class LogicImplementation
+        class StartControllerImplementation
+        class ProposalControllerImplementation
+        class ResumeControllerImplementation
+        class SessionImplementation
+        }
+
+        abstract class AcceptorController {
+        + abstract void accept(ControllersVisitor controllersVisitor)
+        + abstract int getWidth()
+        }
+        abstract class Controller {
+        + StateValue getValueState()
+        }
+        interface ControllersVisitor
+        class Logic {
+        Map<StateValue, AcceptorController> acceptorControllers;
+        + AcceptorController getController()
+        }
+        class MovementController {
+        + boolean isWinner()
+        + boolean isLooser()
+        + int getAttempts()
+        + List<Color> getColors()
+        + int getWidth()
+        + int getBlacks()
+        + int getWhites()
+        + Error addProposedCombination(List<Color> colors)
+        }
+        class RedoController {
+        + void redo()
+        + boolean redoable()
+        }
+        class UndoController {
+        + void undo()
+        + boolean undoable()
+        }
+        abstract class StartController
+        abstract class ProposalController
+        abstract class ResumeController
+
+        AcceptorController .up.> Controller : extends
+        ProposalController .up.> AcceptorController
+        StartController .up.> AcceptorController
+        ResumeController .up.> AcceptorController
+
+        ProposalController --o UndoController
+        ProposalController --o MovementController
+        ProposalController --o RedoController
+
+        LogicImplementation --o StartControllerImplementation
+        LogicImplementation --o ProposalControllerImplementation
+        LogicImplementation --O ResumeControllerImplementation
+
+        ProposalControllerImplementation --o MovementController
+        ProposalControllerImplementation --o UndoController
+        ProposalControllerImplementation --o RedoController
+        ProposalControllerImplementation --o SessionImplementation
+        }
+     LogicImplementation .up.> Logic
+     StartControllerImplementation .up.> StartController
+     ProposalControllerImplementation .up.> ProposalController
+     ResumeControllerImplementation .up.> ResumeController
+    package distributed{}
+    package models{
+    abstract class Combination {
+    final int WIDTH = 4
+    List<Color> colors
+
+    + int getWidth()
+    }
+    class Game {
+    + void clear()
+    + boolean isWinner()
+    + boolean isLooser()
+    + int getAttempts()
+    + List<Color> getColors()
+    + int getWidth()
+    + int getBlacks()
+    + int getWhites()
+    + void addProposedCombination(List<Color> colors)
+
+    - List<Result> getResultsCopy()
+    - List<ProposedCombination> getProposedCombinationCopy()
+
+    }
+    class Memento {
+    - int attempts
+    + List<Result> getResults()
+    + List<ProposedCombination> getProposedCombination()
+    + int getAttempts()
+    }
+    class ProposedCombination
+    class Registry {
+    - int firstPrevious
+    + void undo()
+    + void redo()
+    + boolean undoable()
+    + boolean redoable()
+    + void reset()
+    }
+    class Result
+    class SecretCombination
+    interface Session
+    class State {
+    + void next()
+    + void reset()
+    + getValueState()
+    }
+    enum StateValue {
+        INITIAL
+        IN_GAME
+        FINAL
+        EXIT
+    }
+
+    Game --o "1 "SecretCombination
+    Game --o "0..10" ProposedCombination
+    Game --o "0..10"Result
+    Memento --o "1 "SecretCombination
+    Memento --o "0..10" ProposedCombination
+    Memento --o "0..10"Result
+    Registry --o "1" Game
+    Registry --o "0..10"Memento
+    SecretCombination ..> Combination
+    ProposedCombination ..> Combination
+
+    State --o StateValue
+    }
+    package types{
+    enum Color {
+    PURPLE
+    ORANGE
+    GREEN
+    RED
+    YELLOW
+    BLUE
+    }
+    enum Error {
+        DUPLICATED
+        WRONG_CHARACTERS
+        WRONG_LENGTH
+        NULL
+    }
+    }
+    package views{
+        package console{
+        class AttemptsView
+        class ColorView
+        abstract class Command
+        class ErrorView
+        class PlayCommand
+        class PlayMenu
+        class ProposalView {
+        + void interact(ProposalController proposalController)
+        }
+        class ProposedCombinationView
+        class RedoCommand
+        class ResultView
+        class ResumeView {
+        + void interact(ResumeController resumeController)
+        }
+        class SecretCombinationView
+        class StartView {
+         + void interact(StartController startController)
+        }
+        class UndoCommand
+        class View
+
+        UndoCommand .up.> Command
+        RedoCommand .up.> Command
+        PlayCommand .up.> Command
+
+        PlayCommand --o SecretCombinationView
+        View --o StartView
+        View --o ProposalView
+        View --o ResumeView
+
+        }
+    }
+AttemptsView --o ProposalController
+ResultView --o ProposalController
+ProposedCombinationView --o ProposalController
+SecretCombinationView --o AcceptorController
+
+class Mastermind {
+# abstract void createLogic()
+# void play()
+}
+class MastermindStandalone{
++ void main(String[] args)
+}
+SessionImplementation ..|> Session
+SessionImplementation --o Registry
+SessionImplementation --o Game
+SessionImplementation --o State
+
+View --|> ControllersVisitor
+
+}
+
+
+MastermindStandalone <.up. Mastermind: <extends>
+Mastermind --o View
+Mastermind --o Logic
+
+
+@enduml
